@@ -1,0 +1,10 @@
+# 本地验证产物（Phase G 验证资产：报告/截图/脚本，可随时重新生成）
+.resultverify/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# 编辑器/系统
+.DS_Store
+Thumbs.db

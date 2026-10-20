@@ -1,0 +1,213 @@
+/* ==========================================================================
+   theme-meituan.css — 美团优惠专区主题层（第 3 层 / 共 3 层）
+   --------------------------------------------------------------------------
+   作用域：body[data-site="meituan"]（/meituan/ 全部页面）。
+   视觉方向（design.md 1.3.2.2）：黄绿主调、教程感排印（编号步骤、
+   等宽感小标签、紧凑行高）、步骤卡片竖排 + 桌面端右侧粘性目录栏。
+   对比度说明：design 草案主色 #65A30D 上白字仅 3.09:1，不满足
+   tokens.css「--c-on-primary 与 --c-primary ≥ 4.5:1」契约与 WCAG AA
+   正文要求，故文本承载色采用同色相加深的 #4D7C0F（design 辅色），
+   #65A30D 降级为图形装饰色（hero 渐变端点、底条、卡片顶条、步骤标线）。
+   ========================================================================== */
+
+[data-site="meituan"] {
+  /* ---- 主题 token 覆盖（12 个，其余继承 tokens.css） ---- */
+  --c-primary: #4D7C0F;        /* 深黄绿：白字对比度 4.99:1（头部/CTA 底色） */
+  --c-primary-strong: #3F6212; /* 更深黄绿：标题/hover/页脚（白字 5.74:1） */
+  --c-primary-soft: #F3F9E8;   /* 浅绿底纹（th 底 / 分隔强调） */
+  --c-accent: #4D7C0F;         /* 链接/焦点环（对 --c-bg 对比度 4.86:1） */
+  --c-bg: #FAFDF7;             /* 浅绿白页面底 */
+  --c-surface: #FFFFFF;
+  --c-text: #1A2E05;           /* 深绿黑正文（对 --c-bg 对比度约 14:1） */
+  --c-text-muted: #365314;     /* 次要文字（对 --c-bg 对比度约 8.5:1） */
+  --c-border: #D9EAC8;         /* 浅绿边框 */
+  --c-on-primary: #FFFFFF;
+  --c-danger: #B91C1C;         /* 限时徽章（全局语义色，与各站一致） */
+  --c-danger-soft: #FEF2F2;
+}
+
+/* ---- 教程感排印：紧凑行高 ---- */
+[data-site="meituan"] .prose {
+  line-height: 1.7;
+}
+
+/* ---- 分站 hero：深绿渐变 + 黄绿底条（渐变两端白字均 ≥ 4.5:1） ---- */
+.mt-hero {
+  background: linear-gradient(135deg, #3F6212 0%, #4D7C0F 100%);
+  color: #FFFFFF;
+  padding-block: var(--sp-8);
+  border-bottom: 6px solid #65A30D;
+}
+
+.mt-hero .container {
+  max-width: var(--w-prose);
+}
+
+.mt-hero h1 {
+  color: #FFFFFF;
+}
+
+.mt-hero p {
+  margin-top: var(--sp-4);
+  color: #EFF7E0;
+}
+
+.mt-hero .promo-deadline {
+  margin-top: var(--sp-3);
+  color: #EFF7E0;               /* 覆盖 --c-text-muted：深底上保持可读 */
+}
+
+/* ---- hero 内 CTA 反白：白底深黄绿字（5.74:1），与渐变底形成强对比 ---- */
+.mt-hero .promo-cta {
+  margin-top: var(--sp-5);
+  background: #FFFFFF;
+  color: #3F6212;
+}
+
+.mt-hero .promo-cta:hover {
+  background: #F7FEE7;
+  color: #3F6212;
+  text-decoration: underline;
+}
+
+.mt-hero .promo-note {
+  margin-top: var(--sp-2);
+  color: #EFF7E0;               /* 深底上的预期管理文案 */
+}
+
+/* ---- 三类优惠工具卡片（分站首页）：基线 1 列 → 768px 3 列 ---- */
+.mt-tools {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .mt-tools {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.mt-tool-card {
+  border-top: 4px solid #65A30D;
+}
+
+/* 等宽感小标签（教程风） */
+.mt-tool-tag {
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: #4D7C0F;
+  background: #F3F9E8;
+  border: 1px solid #D9EAC8;
+  border-radius: var(--radius-sm);
+  padding: 0 var(--sp-2);
+}
+
+/* ---- 攻略列表卡片：基线 1 列 → 768px 2 列 ---- */
+.mt-guide-cards {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .mt-guide-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---- 教程页骨架：正文 + 桌面端右侧粘性目录栏 ---- */
+.mt-layout {
+  display: block;               /* 基线（<1024px）：单列，目录沉底 */
+}
+
+.mt-toc {
+  margin-top: var(--sp-6);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-card);
+  padding: var(--sp-4);
+}
+
+.mt-toc h2 {
+  font-size: var(--fs-lg);
+  padding-bottom: var(--sp-2);
+  border-bottom: 2px solid var(--c-primary-soft);
+}
+
+.mt-toc ul {
+  list-style: none;
+  margin: var(--sp-2) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.mt-toc a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-target);
+  color: var(--c-text);
+  text-decoration: none;
+}
+
+.mt-toc a:hover,
+.mt-toc a:focus-visible {
+  color: var(--c-primary-strong);
+  text-decoration: underline;
+}
+
+@media (min-width: 1024px) {
+  .mt-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 240px;
+    gap: var(--sp-8);
+    align-items: start;
+  }
+
+  .mt-toc {
+    position: sticky;
+    top: var(--sp-4);
+    margin-top: 0;
+  }
+}
+
+/* ---- 编号步骤卡片流（教程页 ol）：竖排卡片 + 等宽序号 ---- */
+.mt-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  counter-reset: mt-step;
+}
+
+.mt-steps > li {
+  counter-increment: mt-step;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-left: 4px solid #65A30D;
+  border-radius: var(--radius-sm);
+  padding: var(--sp-4);
+}
+
+.mt-steps > li::before {
+  content: "STEP " counter(mt-step, decimal-leading-zero);
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #4D7C0F;
+  margin-bottom: var(--sp-1);
+}
+
+.mt-steps > li > strong {
+  display: block;
+  color: var(--c-text);
+}
+
+.mt-steps > li p {
+  margin-top: var(--sp-1);
+  color: var(--c-text-muted);
+}

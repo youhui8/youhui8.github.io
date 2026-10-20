@@ -1,0 +1,171 @@
+/* ==========================================================================
+   theme-gouwu.css — 网购外卖省钱站主题层（第 3 层 / 共 3 层）
+   --------------------------------------------------------------------------
+   作用域：body[data-site="gouwu"]（gouwu/ 目录全部页面）。
+   视觉基调（design.md 1.3.2.2）：紫 #7C3AED → 玫红 #DB2777 主辅渐变，
+   淡紫白底 #FAF8FF；导购感排印：时间轴节点、清单勾选符号、渐变强调。
+   布局骨架（全站独有）：垂直时间轴 + 双列清单卡。
+   无障碍说明：冻结辅色 #DB2777 对淡紫白底的对比度约 4.4:1，未达 WCAG AA
+   正文标准，故链接/强调文字用其加深变体 #BE185D（对 #FAF8FF ≈ 5.7:1）；
+   #DB2777 仅用于渐变装饰（白色文字对 #DB2777 ≈ 4.6:1，达 AA）。
+   ========================================================================== */
+
+[data-site="gouwu"] {
+  /* ---- 主题 token 覆盖（12 个，其余继承 tokens.css） ---- */
+  --c-primary: #7C3AED;         /* 紫（冻结主色，白字对比度 ≈ 5.7:1） */
+  --c-primary-strong: #5B21B6;  /* 深紫：hover / 标题（对 #FAF8FF ≈ 8.5:1） */
+  --c-primary-soft: #F3E8FF;    /* 浅紫：表头 / 分隔强调底 */
+  --c-accent: #BE185D;          /* 深玫红：链接 / 勾选符号（对 #FAF8FF ≈ 5.7:1） */
+  --c-bg: #FAF8FF;              /* 淡紫白（冻结底色） */
+  --c-surface: #FFFFFF;
+  --c-text: #292038;            /* 深紫黑正文（对 #FAF8FF ≈ 13:1） */
+  --c-text-muted: #6B6280;      /* 次要文字（对 #FAF8FF ≈ 5.4:1） */
+  --c-border: #E9DFFC;
+  --c-on-primary: #FFFFFF;
+  --c-danger: #B91C1C;
+  --c-danger-soft: #FEF2F2;
+}
+
+/* ---- 渐变 hero：主→辅渐变，首屏含 CTA（REQ-CTA-001） ---- */
+.gw-hero {
+  background: linear-gradient(135deg, #7C3AED 0%, #DB2777 100%);
+  color: #FFFFFF;
+  padding-block: var(--sp-8);
+}
+
+.gw-hero h1 {
+  color: #FFFFFF;
+}
+
+.gw-hero-lead {
+  margin-top: var(--sp-4);
+  max-width: var(--w-prose);
+  color: #FFFFFF;
+}
+
+/* hero 内 CTA：白底深紫字（对 #FFFFFF ≈ 9:1），压在渐变上醒目 */
+.gw-hero .promo-cta {
+  margin-top: var(--sp-6);
+  background: #FFFFFF;
+  color: #5B21B6;
+  border-color: #FFFFFF;
+}
+
+.gw-hero .promo-cta:hover {
+  background: #F3E8FF;
+  color: #4C1D95;
+}
+
+.gw-hero .promo-cta:focus-visible {
+  outline-color: #FFFFFF;
+}
+
+.gw-hero .promo-note {
+  color: #FFFFFF;
+}
+
+/* ---- 栏目标题：渐变下划线（导购感强调） ---- */
+[data-site="gouwu"] .section-title {
+  border-bottom: 3px solid #7C3AED;
+  border-image: linear-gradient(90deg, #7C3AED 0%, #DB2777 100%) 1;
+}
+
+/* ---- 垂直时间轴：渐变轴线 + 节点圆点（本站独有骨架） ---- */
+.gw-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.gw-timeline::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #7C3AED 0%, #DB2777 100%);
+}
+
+.gw-timeline li {
+  position: relative;
+  padding-left: 40px;
+  padding-bottom: var(--sp-5);
+}
+
+.gw-timeline li:last-child {
+  padding-bottom: 0;
+}
+
+.gw-timeline li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7C3AED 0%, #DB2777 100%);
+  border: 3px solid #FFFFFF;
+  box-shadow: 0 0 0 1px var(--c-border);
+}
+
+.gw-timeline time {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--c-accent);
+}
+
+/* ---- 双列网格：清单卡 / 攻略卡（基线 1 列 → ≥768px 2 列） ---- */
+.gw-grid-2 {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .gw-grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---- 清单勾选符号（导购清单风，本站独有） ---- */
+.gw-check {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--sp-2);
+}
+
+.gw-check li {
+  position: relative;
+  padding-left: 1.75em;
+}
+
+.gw-check li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-weight: 700;
+  color: var(--c-accent);
+}
+
+/* ---- 速查清单（dl）：dt 主题色强调 ---- */
+.gw-quick dt {
+  font-weight: 700;
+  color: var(--c-primary-strong);
+}
+
+.gw-quick dd {
+  margin: 0 0 var(--sp-3);
+  color: var(--c-text-muted);
+}
+
+.gw-quick dd:last-child {
+  margin-bottom: 0;
+}

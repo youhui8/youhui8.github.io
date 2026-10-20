@@ -1,0 +1,236 @@
+/* ==========================================================================
+   theme-jingdong-waimai.css — 京东外卖红包站主题层（第 3 层 / 共 3 层）
+   --------------------------------------------------------------------------
+   作用域：body[data-site="jingdong-waimai"]（/jingdong-waimai/ 全部页面）。
+   测评风视觉：京东红实色主色 + 近白微红页面底、mono 步骤编号、
+   红底白字表头、步骤卡与双栏攻略列表（≥1280px 生效）。
+   无障碍（WCAG AA）：实色背景与正文文字色对白/近白底均 ≥ 4.5:1；
+   #DC2626 仅用于渐变端点、边框等装饰用途，不承担文字色。
+   ========================================================================== */
+
+[data-site="jingdong-waimai"] {
+  /* ---- 主题 token 覆盖（jingdong-waimai：京东红测评） ---- */
+  --c-primary: #B91C1C;         /* 实色主色（页头/CTA/表头底），白字 6.5:1 */
+  --c-primary-strong: #991B1B;  /* hover 加深与页脚底色，白字 8.4:1 */
+  --c-primary-soft: #FEF9F9;    /* 浅红底（标签底） */
+  --c-accent: #B91C1C;          /* 链接/强调色，对白底 ≥ 6.5:1 */
+  --c-bg: #FFFCFC;              /* 近白微红页面底 */
+  --c-surface: #FFFFFF;
+  --c-text: #450A0A;            /* 暖黑正文，对页面底 ~17:1 */
+  --c-text-muted: #7F1D1D;      /* 次要文字，对页面底 ~9.5:1 */
+  --c-border: #FECACA;
+  --c-on-primary: #FFFFFF;
+  --c-danger: #B91C1C;
+  --c-danger-soft: #FEF2F2;
+  /* ---- jingdong-waimai 布局 token ---- */
+  --radius-card: 10px;          /* 测评卡圆角（比周刊风收紧） */
+  --header-underline: 4px;      /* 栏目标题下划线宽度 */
+}
+
+/* ---- 头牌 hero：京东红渐变（深色域保证白字 ≥ 4.5:1）+ 正红装饰线 ---- */
+[data-site="jingdong-waimai"] .site-hero {
+  background: linear-gradient(135deg, #450A0A 0%, #991B1B 55%, #B91C1C 100%);
+  border-bottom: 4px solid #DC2626;   /* 装饰线 */
+  color: #FFFFFF;
+  padding-block: var(--sp-7);
+}
+
+[data-site="jingdong-waimai"] .site-hero .container {
+  display: grid;
+  gap: var(--sp-6);
+}
+
+@media (min-width: 768px) {
+  [data-site="jingdong-waimai"] .site-hero .container {
+    grid-template-columns: 1.25fr 1fr;   /* 主区 + 侧栏（教程站布局） */
+    align-items: center;
+    gap: var(--sp-8);
+  }
+}
+
+.hero-kicker {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: #FECACA;               /* 对渐变深色域 ≥ 6:1 */
+}
+
+[data-site="jingdong-waimai"] .site-hero h1 {
+  color: #FFFFFF;
+  margin-top: var(--sp-3);
+}
+
+.hero-lead {
+  margin-top: var(--sp-4);
+  color: #FEE2E2;               /* 对渐变最浅端 ≥ 5:1 */
+}
+
+/* hero 内 CTA 反白：白底红字（6.5:1），与渐变底形成强对比 */
+[data-site="jingdong-waimai"] .site-hero .promo-cta {
+  background: #FFFFFF;
+  color: #B91C1C;
+  margin-top: var(--sp-5);
+}
+
+[data-site="jingdong-waimai"] .site-hero .promo-cta:hover {
+  background: #FEF9F9;
+  color: #991B1B;
+  text-decoration: underline;
+}
+
+/* hero 内期限提示与预期管理文案：浅红文字适配深红渐变底 */
+[data-site="jingdong-waimai"] .site-hero .promo-deadline {
+  margin-top: var(--sp-3);
+  color: #FEE2E2;
+}
+
+[data-site="jingdong-waimai"] .site-hero .promo-note {
+  color: #FEE2E2;
+}
+
+/* hero 侧栏：白底"本站怎么用"卡（步骤清单，文字全部达标） */
+.hero-aside {
+  background: var(--c-surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--sp-5);
+}
+
+.hero-aside h2 {
+  font-size: var(--fs-lg);
+  padding-bottom: var(--sp-2);
+  border-bottom: var(--header-underline) solid #DC2626;
+}
+
+.hero-aside ol {
+  margin-top: var(--sp-3);
+  padding-left: 1.5em;
+}
+
+.hero-aside li + li {
+  margin-top: var(--sp-2);
+}
+
+/* ---- 栏目编号（测评风 mono 小标签） ---- */
+.section-no {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #991B1B;                /* 对标签底 #FEF9F9 ~8:1 */
+  background: #FEF9F9;
+  border: 1px solid #FECACA;
+  border-radius: var(--radius-sm);
+  padding: var(--sp-1) var(--sp-3);
+  margin-bottom: var(--sp-3);
+}
+
+/* 栏目标题：测评下划线 */
+[data-site="jingdong-waimai"] .section-title {
+  border-bottom: var(--header-underline) solid #DC2626;
+}
+
+/* ---- 三步教程卡（首页速览 + 教程页呼应） ---- */
+.step-grid {
+  grid-template-columns: 1fr;
+}
+
+.step-card {
+  border-top: 4px solid #DC2626;  /* 装饰色条 */
+}
+
+.step-no {
+  align-self: flex-start;
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #FFFFFF;                 /* 红底编号，白字 6.5:1 */
+  background: #B91C1C;
+  border-radius: var(--radius-sm);
+  padding: var(--sp-1) var(--sp-3);
+  margin-bottom: var(--sp-3);
+}
+
+@media (min-width: 768px) {
+  .step-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ---- 双栏攻略列表（≥1280px 生效） ---- */
+.guide-list {
+  display: grid;
+  gap: var(--sp-5);
+}
+
+.guide-list .card {
+  border-left: 4px solid #DC2626;  /* 装饰边条 */
+}
+
+.guide-more {
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+}
+
+@media (min-width: 1280px) {
+  .guide-list {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2rem;
+  }
+}
+
+/* ---- 测评风表头：红底白字（区分通用表格的浅底样式） ---- */
+[data-site="jingdong-waimai"] .table-wrap th {
+  background: var(--c-primary);
+  color: #FFFFFF;
+}
+
+/* ---- 结论框（对比页的"怎么选"判断标准） ---- */
+.verdict-panel {
+  background: var(--c-primary-soft);
+  border: 1px dashed var(--c-primary);
+  border-radius: var(--radius-card);
+  padding: var(--sp-4) var(--sp-5);
+  margin-top: var(--sp-4);
+}
+
+.verdict-panel h3 {
+  font-size: var(--fs-lg);
+}
+
+.verdict-panel p {
+  margin-top: var(--sp-2);
+}
+
+/* ---- 攻略页头部元信息 ---- */
+.article-meta {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+}
+
+/* ---- 优惠入口说明卡（CTA 面板） ---- */
+.cta-panel {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-left: 6px solid #DC2626;  /* 装饰边条 */
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--sp-5);
+  margin-top: var(--sp-5);
+}
+
+.cta-panel .promo-deadline {
+  margin-top: var(--sp-3);
+}
+
+/* ---- 页脚版权行 ---- */
+.footer-copy {
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-3);
+  border-top: 1px solid rgba(254, 202, 202, 0.35);
+  font-size: var(--fs-xs);
+  color: #FECACA;                 /* 对页脚底 #991B1B ≥ 5.7:1 */
+}

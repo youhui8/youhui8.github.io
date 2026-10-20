@@ -1,0 +1,10 @@
+{
+  "name": "youhui8.github.io",
+  "version": "1.0.0",
+  "private": true,
+  "description": "优惠集合导航 6 站静态矩阵（GitHub Pages，无构建）",
+  "scripts": {
+    "test": "node --test tests/01-data.test.mjs tests/02-pages.test.mjs tests/03-seo.test.mjs tests/04-jsonld.test.mjs tests/05-promo.test.mjs tests/06-links.test.mjs tests/07-assets.test.mjs",
+    "check:data": "node scripts/check-data.mjs --strict"
+  }
+}

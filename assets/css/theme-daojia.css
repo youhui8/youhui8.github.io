@@ -1,0 +1,112 @@
+/* ==========================================================================
+   theme-daojia.css — 到家服务特惠主题层（第 3 层 / 共 3 层）
+   --------------------------------------------------------------------------
+   作用域：body[data-site="daojia"]（/daojia/ 分站三页共用）。
+   覆盖 12 个主题 token + 分站布局差异类（hero 横幅 / 类目卡片三联 /
+   徽章化服务标签 / CTA 面板 / 页脚版权行）。
+   视觉锚点（design.md 1.3.2）：天蓝 #0284C7 · 深蓝 #0369A1 · 淡蓝白 #F5FAFE。
+   无障碍契约（tokens.css）：--c-on-primary 对 --c-primary ≥ 4.5:1。
+   #0284C7 与白色前景仅 4.1:1，不满足文字承载要求，故仅用于装饰性
+   边框与点缀；文字承载色采用 #0369A1（对白 5.9:1）与 #075985（对白 8.6:1）。
+   ========================================================================== */
+
+[data-site="daojia"] {
+  /* ---- 主题 token 覆盖（12/12） ---- */
+  --c-primary: #0369A1;        /* 深蓝主色：头部底 / CTA 底（对 #FFFFFF 5.9:1） */
+  --c-primary-strong: #075985; /* 主色加深：hover / 标题（对 #FFFFFF 8.6:1） */
+  --c-primary-soft: #E0F2FE;   /* 天蓝浅底：表头 / 选中底 */
+  --c-accent: #0E7490;         /* 青蓝点缀：正文链接 / 焦点环（对 --c-bg ≥ 5:1） */
+  --c-bg: #F5FAFE;             /* 淡蓝白页面底 */
+  --c-surface: #FFFFFF;        /* 卡片 / 表面底色 */
+  --c-text: #123047;           /* 深海蓝正文（对 --c-bg ≥ 12:1） */
+  --c-text-muted: #3E5A73;     /* 次要文字（对 --c-bg ≥ 5:1） */
+  --c-border: #CBE3F3;         /* 边框 / 分隔线 */
+  --c-on-primary: #FFFFFF;     /* 主色之上前景（对 #0369A1 5.9:1 ≥ 4.5 ✓） */
+  --c-danger: #B91C1C;         /* 限时徽章（语义色沿用全局） */
+  --c-danger-soft: #FEF2F2;
+}
+
+/* ---- hero 横幅：深蓝渐变承载白色文字（两端对白均 ≥ 5.9:1），
+        天蓝 #0284C7 作装饰性底边，呼应 design.md 视觉锚点 ---- */
+.daojia-hero {
+  background: linear-gradient(135deg, #0369A1 0%, #075985 100%);
+  border-bottom: 4px solid #0284C7;
+  color: #FFFFFF;
+  padding-block: var(--sp-8);
+}
+
+.daojia-hero .container {
+  max-width: var(--w-prose);
+}
+
+.daojia-hero h1 {
+  color: #FFFFFF;
+}
+
+.daojia-hero p {
+  margin-top: var(--sp-4);
+  color: #E0F2FE;              /* 对渐变较浅端 #0369A1 5.2:1 */
+}
+
+/* ---- hero 内 CTA 反白：白底深蓝字（8.6:1），与深蓝渐变底形成强对比 ---- */
+.daojia-hero .promo-cta {
+  margin-top: var(--sp-5);
+  background: #FFFFFF;
+  color: #075985;
+}
+
+.daojia-hero .promo-cta:hover {
+  background: #F0F9FF;
+  color: #075985;
+  text-decoration: underline;
+}
+
+.daojia-hero .promo-note {
+  margin-top: var(--sp-2);
+  color: #E0F2FE;              /* 深底上的预期管理文案 */
+}
+
+/* ---- 徽章化服务标签（design.md 1.3.2 信任感元素） ---- */
+.service-tag {
+  display: inline-block;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  line-height: 1.75;
+  padding: 0 var(--sp-2);
+  border-radius: var(--radius-sm);
+  background: var(--c-primary);
+  color: var(--c-on-primary);  /* 白字对 #0369A1 5.9:1 */
+  white-space: nowrap;
+}
+
+/* ---- 类目卡片三联（design.md 1.3.2 布局特征）：
+        基线 1 列 → 768px 2 列 → 1024px 3 列，移动优先 ---- */
+.daojia-cards {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .daojia-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .daojia-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ---- CTA 面板：圆角大卡片 + 主色左强调边（叠加在 .card 之上） ---- */
+.daojia-cta-panel {
+  border-left: 4px solid var(--c-primary);
+}
+
+/* ---- 页脚版权行 ---- */
+.footer-copy {
+  margin-top: var(--sp-5);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--c-border);
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+}
