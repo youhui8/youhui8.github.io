@@ -1,11 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#4F46E5"/>
-      <stop offset="1" stop-color="#0EA5E9"/>
+    <linearGradient id="g" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4338CA"/>
+      <stop offset="1" stop-color="#2563EB"/>
     </linearGradient>
   </defs>
+  <!-- 底板：圆角方，135° 品牌渐变（白图形两端对比 7.86:1 / 5.35:1） -->
   <rect width="64" height="64" rx="14" fill="url(#g)"/>
-  <circle cx="32" cy="22" r="9" fill="none" stroke="#FFFFFF" stroke-width="5"/>
-  <circle cx="32" cy="42" r="9" fill="none" stroke="#FFFFFF" stroke-width="5"/>
+  <!-- 票券母题：40×24 圆角矩形轮廓，左右边缘中点各挖 r=4 半圆缺口 -->
+  <path d="M14 20 h36 a2 2 0 0 1 2 2 v6 a4 4 0 0 0 0 8 v6 a2 2 0 0 1 -2 2 h-36 a2 2 0 0 1 -2 -2 v-6 a4 4 0 0 0 0 -8 v-6 a2 2 0 0 1 2 -2 z"
+        fill="#FFFFFF"/>
+  <!-- 左区 ￥：白底上透出底板渐变 -->
+  <text x="26" y="39.5" font-family="-apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="url(#g)" text-anchor="middle">￥</text>
+  <!-- 中缝竖虚线 -->
+  <line x1="41.5" y1="25" x2="41.5" y2="39" stroke="url(#g)" stroke-width="1.8" stroke-dasharray="2.8 2.8"/>
 </svg>

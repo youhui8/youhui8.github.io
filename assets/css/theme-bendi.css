@@ -194,12 +194,3 @@
   padding: var(--sp-5);
   margin-top: var(--sp-5);
 }
-
-/* ---- 页脚版权行 ---- */
-.footer-copy {
-  margin-top: var(--sp-4);
-  padding-top: var(--sp-3);
-  border-top: 1px solid rgba(254, 215, 170, 0.35);
-  font-size: var(--fs-xs);
-  color: #FED7AA;                 /* 对页脚底 #9A3412 ≥ 5:1 */
-}

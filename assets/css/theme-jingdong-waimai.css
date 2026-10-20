@@ -225,12 +225,3 @@
 .cta-panel .promo-deadline {
   margin-top: var(--sp-3);
 }
-
-/* ---- 页脚版权行 ---- */
-.footer-copy {
-  margin-top: var(--sp-4);
-  padding-top: var(--sp-3);
-  border-top: 1px solid rgba(254, 202, 202, 0.35);
-  font-size: var(--fs-xs);
-  color: #FECACA;                 /* 对页脚底 #991B1B ≥ 5.7:1 */
-}

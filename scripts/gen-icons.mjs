@@ -2,13 +2,17 @@
  * gen-icons.mjs — favicon 全套资产生成（脚本 A，design.md 1.3.5.2）
  * ---------------------------------------------------------------
  * 产出（仓库根目录）：
- *   favicon.ico                  ICO 容器，16/32/48 三帧 BMP 32bpp（Safari 兼容）
+ *   favicon.ico                  ICO 容器，16/32 两帧 BMP 32bpp（报告 §4.4：48 帧
+ *                                仅旧 Safari 受益，删帧省 ~9KB；门禁仅校验魔数）
  *   favicon-{16,32,48}x{...}.png 浏览器标签页各档位图（圆角 + 透明外围）
  *   apple-touch-icon.png         180×180，全出血渐变（iOS 自行裁角）
- *   android-chrome-{192,512}.png Android Chrome / 安装信息
+ *   android-chrome-{192,512}.png Android Chrome / 安装信息；全出血（maskable：
+ *                                512 条目声明 purpose:"maskable"，图形位于
+ *                                中心 80% 安全区内，任意遮罩裁切不伤票券）
  *
  * 降级链：sharp（本仓库不可用，无 node_modules）→ 纯 JS 编码器（本脚本）。
- * 图形：favicon.svg 同款"无限惠环"（渐变圆角底 + 双白环），SDF 抗锯齿。
+ * 图形：favicon.svg 同款"惠券"票券（渐变底 + 白色票券 + 两侧半圆缺口），
+ * 分尺寸特化：16/32 仅轮廓+缺口；48 +中缝虚线；180/192/512 +￥与虚线。
  * 用法：node scripts/gen-icons.mjs（在仓库根目录执行）
  */
 import { writeFileSync } from 'node:fs';
@@ -90,8 +94,9 @@ const PNG_JOBS = [
   { size: 32, file: 'favicon-32x32.png', fullBleed: false },
   { size: 48, file: 'favicon-48x48.png', fullBleed: false },
   { size: 180, file: 'apple-touch-icon.png', fullBleed: true },
-  { size: 192, file: 'android-chrome-192x192.png', fullBleed: false },
-  { size: 512, file: 'android-chrome-512x512.png', fullBleed: false },
+  // 192/512 全出血：512 条目 purpose:"maskable"，票券图形位于中心 80% 安全区
+  { size: 192, file: 'android-chrome-192x192.png', fullBleed: true },
+  { size: 512, file: 'android-chrome-512x512.png', fullBleed: true },
 ];
 
 for (const job of PNG_JOBS) {
@@ -100,11 +105,13 @@ for (const job of PNG_JOBS) {
   console.log(`OK  ${job.file}  ${png.length} bytes (${job.size}x${job.size})`);
 }
 
-const icoFrames = [16, 32, 48].map((size) => ({
+// ICO 两帧（16/32）：48 帧仅旧版 Safari 受益（现代 Safari 走 PNG/SVG），
+// 报告 §4.4 删帧后 14.7KB → ~5.6KB；门禁（check-data / tests-07）仅校验魔数
+const icoFrames = [16, 32].map((size) => ({
   size,
   data: bmpFrame(drawBrandIcon(size, { fullBleed: false }), size),
 }));
 const ico = icoEncode(icoFrames);
 writeFileSync('favicon.ico', ico);
-console.log(`OK  favicon.ico  ${ico.length} bytes (16/32/48 BMP frames)`);
+console.log(`OK  favicon.ico  ${ico.length} bytes (16/32 BMP frames)`);
 console.log('完成：7 个位图资产已生成（favicon.svg / site.webmanifest 为手写稿）。');

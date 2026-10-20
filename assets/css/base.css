@@ -4,6 +4,7 @@
    reset + 基线 + header/nav + breadcrumb + footer + CTA + 徽章 + 卡片
    + 表格 + FAQ + 触控基线 + 期限组件（CLS 防抖）。
    断点（移动优先 min-width）：375 / 768 / 1024 / 1280。
+   正文 .prose 铺满父容器（不限宽）；--w-prose 仅用于 hero 居中容器。
    ========================================================================== */
 
 /* ---- reset 要素 ---- */
@@ -122,15 +123,9 @@ a:focus-visible {
   padding-inline: var(--sp-4);
 }
 
-/* 正文阅读宽（≥1024px 生效，禁止全屏拉伸） */
+/* 正文阅读宽：铺满父容器（1200px 容器内约 73 汉字/行，2026-10 产品确认放弃 72ch 限宽） */
 .prose {
   max-width: 100%;
-}
-
-@media (min-width: 1024px) {
-  .prose {
-    max-width: var(--w-prose);
-  }
 }
 
 .prose > * + * {
@@ -276,6 +271,93 @@ a:focus-visible {
   color: var(--c-text-muted);
 }
 
+/* ---- 导航卡整卡可点（拉伸链接模式：标题链接伪元素覆盖整卡） ---- */
+.site-card {
+  position: relative;
+}
+
+/* 整卡可点：标题链接的伪元素拉伸覆盖整卡（z 覆盖层在卡片内容之上） */
+.site-card h2 a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+/* deadline 条穿透：该条带 position:relative 且 DOM 靠后，绘制在覆盖层之上，
+   拦截点击（验证报告 P3 #1）。deadline 组件无交互语义（JS 仅改文案不绑事件），
+   穿透后点击落到覆盖层即整卡跳转；代价仅条内文字不可选，可接受 */
+.site-card .promo-deadline {
+  pointer-events: none;
+}
+
+/* hover 整卡反馈：边框着色 + 阴影加深（标题色复用 .card h2 a:hover） */
+.site-card:hover {
+  border-color: var(--c-accent);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12), 0 8px 20px rgba(15, 23, 42, 0.10);
+}
+
+/* 键盘可达：Tab 聚焦标题时整卡描边（全局 a:focus-visible 只描标题文字，这里补整卡态） */
+.site-card:focus-within {
+  outline: 3px solid var(--c-accent);
+  outline-offset: 2px;
+}
+
+/* 尊重减弱动效 */
+@media (prefers-reduced-motion: reduce) {
+  .site-card,
+  .site-card:hover {
+    transition: none;
+  }
+}
+
+/* ---- 攻略卡整卡可点（复用导航卡拉伸链接模式；四类容器 bendi/jd 的
+        .guide-list、daojia 的 .daojia-cards、meituan 的 .mt-guide-cards、
+        gouwu 的 .gw-grid-2 卡内均仅标题一个链接，覆盖层不遮挡交互元素） ---- */
+.guide-list .card,
+.daojia-cards .card,
+.mt-guide-cards .card,
+.gw-grid-2 .card {
+  position: relative;
+}
+
+.guide-list .card h3 a::after,
+.daojia-cards .card h3 a::after,
+.mt-guide-cards .card h3 a::after,
+.gw-grid-2 .card h3 a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.guide-list .card:hover,
+.daojia-cards .card:hover,
+.mt-guide-cards .card:hover,
+.gw-grid-2 .card:hover {
+  border-color: var(--c-accent);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12), 0 8px 20px rgba(15, 23, 42, 0.10);
+}
+
+.guide-list .card:focus-within,
+.daojia-cards .card:focus-within,
+.mt-guide-cards .card:focus-within,
+.gw-grid-2 .card:focus-within {
+  outline: 3px solid var(--c-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .guide-list .card,
+  .guide-list .card:hover,
+  .daojia-cards .card,
+  .daojia-cards .card:hover,
+  .mt-guide-cards .card,
+  .mt-guide-cards .card:hover,
+  .gw-grid-2 .card,
+  .gw-grid-2 .card:hover {
+    transition: none;
+  }
+}
+
 /* ---- 通用卡片网格（列数由主题层控制；基线 = 单列） ---- */
 .card-grid {
   display: grid;
@@ -351,6 +433,12 @@ a:focus-visible {
   top: 0.25em;
 }
 
+/* 过期降级态（deadline.js 加 .is-expired）：徽章已被移除，撤掉缩进，
+   文案左对齐阅读更自然；min-height 仍防位移 */
+.promo-deadline.is-expired {
+  padding-left: 0;
+}
+
 /* ---- 表格 ---- */
 .table-wrap {
   overflow-x: auto;            /* 窄屏横向滚动兜底（REQ-RWD-001） */
@@ -414,7 +502,7 @@ th {
   color: var(--c-text-muted);
 }
 
-/* ---- 页脚：友链 3 区块 + 披露（REQ-LINK-001~006、REQ-COMP-001/002） ---- */
+/* ---- 页脚：导航/友链分区 + 披露横跨整行（REQ-LINK-001~006、REQ-COMP-001/002） ---- */
 .site-footer {
   margin-top: var(--sp-8);
   background: var(--c-primary-strong);
@@ -456,11 +544,12 @@ th {
   text-decoration: underline;
 }
 
+/* 披露 + 版权：整行横跨（分区布局最后一行） */
 .footer-disclosure {
   border-top: 1px solid rgba(226, 232, 240, 0.25);
   padding-top: var(--sp-4);
   font-size: var(--fs-sm);
-  color: #CBD5E1;              /* 对 #1E293B 对比度 ≥ 4.5:1 */
+  color: #CBD5E1;              /* 对全部 6 站页脚底色 ≥ 4.77:1 */
 }
 
 .footer-disclosure p + p {
@@ -471,11 +560,28 @@ th {
   color: #FFFFFF;
 }
 
+/* 版权行：统一基座（收敛原 4 处主题层定义；#CBD5E1 对 6 站页脚底 4.77~10.4:1） */
+.footer-copy {
+  margin-top: var(--sp-3);
+  padding-top: var(--sp-3);
+  border-top: 1px solid rgba(226, 232, 240, 0.25);
+  font-size: var(--fs-xs);
+  color: #CBD5E1;
+}
+
 @media (min-width: 768px) {
   .site-footer .container {
     grid-template-columns: 1fr 2fr;
+    grid-template-areas:
+      "nav  links"
+      "disclosure disclosure";
     gap: var(--sp-8);
   }
+
+  /* 依 DOM 顺序占位：nav(1) → nav 区、nav(2) → links 区、.footer-disclosure → 横跨整行 */
+  .site-footer .container > nav:first-of-type { grid-area: nav; }
+  .site-footer .container > nav:last-of-type  { grid-area: links; }
+  .site-footer .container > .footer-disclosure { grid-area: disclosure; }
 
   .footer-links {
     flex-direction: row;       /* ≥768px：友链横向换行 */

@@ -21,9 +21,9 @@
   --c-danger-soft: #FEF2F2;
 }
 
-/* ---- hero：居中单列，品牌渐变呼应"无限惠环" ---- */
+/* ---- hero：居中单列，品牌渐变（#4338CA→#2563EB，两端白字 7.86:1 / 5.35:1，与 favicon 同源） ---- */
 .home-hero {
-  background: linear-gradient(135deg, #4F46E5 0%, #0EA5E9 100%);
+  background: linear-gradient(135deg, #4338CA 0%, #2563EB 100%);
   color: #FFFFFF;
   padding-block: var(--sp-8);
 }
@@ -55,8 +55,11 @@
 
 @media (min-width: 1024px) {
   .home-cards {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(6, 1fr);   /* 6 列基准 */
   }
+  /* 前 3 卡各占 2 列（第一行铺满），后 2 卡各占 3 列（第二行铺满），消除 3+2 右侧空缺 */
+  .home-cards > .card:nth-child(-n+3) { grid-column: span 2; }
+  .home-cards > .card:nth-child(n+4)  { grid-column: span 3; }
 }
 
 /* 卡片顶部主题色条（分站主题色预览，增强两两区分度） */
