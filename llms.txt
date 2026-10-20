@@ -1,0 +1,34 @@
+# 优惠集合导航（youhui8.github.io）
+
+> 外卖红包、团购与网购优惠的信息聚合导航站，由首页与 5 个垂直分站组成；本站为聚合导航，非各平台官方。
+
+## 站点矩阵
+- [优惠集合导航](https://youhui8.github.io/): 全站枢纽，5 大分站导航与使用说明
+- [本地生活优惠集](https://youhui8.github.io/bendi/): 外卖、团购、周边游等城市生活场景省钱攻略
+- [美团优惠专区](https://youhui8.github.io/meituan/): 美团红包、神券领取教程与玩法攻略（推广链接有效期至 2026-12-31）
+- [京东外卖红包站](https://youhui8.github.io/jingdong-waimai/): 京东外卖红包领取教程与跨平台点餐对比（推广链接有效期至 2026-12-31）
+- [到家服务特惠](https://youhui8.github.io/daojia/): 特惠洗车、京东家政等上门服务的价格对比与避坑指南
+- [网购外卖省钱站](https://youhui8.github.io/gouwu/): 全年网购大促日历与外卖、网购双线省钱清单
+
+## 各站页面清单
+### 优惠集合导航
+- [关于本站](https://youhui8.github.io/about/): 站点定位、矩阵结构与推广链接说明
+### 本地生活优惠集
+- [外卖点餐场景省钱指南](https://youhui8.github.io/bendi/waimai-scene-guide.html): 通勤午餐到周末聚餐的场景化点餐攻略
+- [周边游团购订房省钱攻略](https://youhui8.github.io/bendi/zhoubianyou-tuangou.html): 团购套餐与酒旅优惠的实操指南
+### 美团优惠专区
+- [美团外卖红包领取教程](https://youhui8.github.io/meituan/hongbao-guide.html): 每天可领的红包入口与使用步骤
+- [美团神券节大额券抢券攻略](https://youhui8.github.io/meituan/shenquan-guide.html): 神券节节奏与大额券叠加方法
+### 京东外卖红包站
+- [京东外卖红包三步领取教程](https://youhui8.github.io/jingdong-waimai/hongbao-step.html): 三步到账的红包领取操作指引
+- [京东与美团外卖点餐对比](https://youhui8.github.io/jingdong-waimai/duibi-meituan.html): 红包、配送费与满减的横向对比
+### 到家服务特惠
+- [特惠洗车价格对比怎么选](https://youhui8.github.io/daojia/xiche-jiage.html): 到店、上门与团购券的价格对比
+- [京东家政保洁预约避坑指南](https://youhui8.github.io/daojia/jiazheng-bikeng.html): 计价方式与预约避坑要点
+### 网购外卖省钱站
+- [全年网购大促日历与囤货攻略](https://youhui8.github.io/gouwu/dacu-rili.html): 618、双 11 与年货节的囤货节奏
+- [外卖加网购双线省钱清单](https://youhui8.github.io/gouwu/waimai-gouwu-qingdan.html): 红包、满减与凑单技巧清单
+
+## 使用说明
+- 各分站页面内的"优惠入口"指向第三方推广页面，点击后将离开本站
+- 标注"有效期至 2026-12-31"的入口以页面标注为准；过期后入口仍可点击查看最新情况

@@ -1,0 +1,69 @@
+/* ==========================================================================
+   tokens.css — 全局设计 token 层（第 1 层 / 共 3 层）
+   --------------------------------------------------------------------------
+   - 色彩语义 token（--c-*）：默认值 = 首页中性主题；各分站主题层
+     （theme-{slug}.css）在 [data-site] 作用域内覆盖同名 token。
+   - --c-on-primary 与 --c-primary 对比度 ≥ 4.5:1（全部主题适用）。
+   - 字体：系统字体栈，零 Web 字体（REQ-NFR-001）。
+   - 断点（媒体查询注释冻结）：375 / 768 / 1024 / 1280，移动优先 min-width。
+   ========================================================================== */
+
+:root {
+  /* ---- 色彩语义 token（默认 = 首页 home 主题，见 theme-home.css） ---- */
+  --c-primary: #334155;        /* 主色（头部底色 / CTA / 强调边框） */
+  --c-primary-strong: #1E293B; /* 主色加深（hover / 标题） */
+  --c-primary-soft: #E2E8F0;   /* 主色浅化（选中底 / 分隔强调） */
+  --c-accent: #4F46E5;         /* 点缀色（链接 / 品牌渐变起点） */
+  --c-bg: #F8FAFC;             /* 页面底色 */
+  --c-surface: #FFFFFF;        /* 卡片 / 表面底色 */
+  --c-text: #1E293B;           /* 正文（对 --c-bg 对比度 ≥ 4.5:1） */
+  --c-text-muted: #475569;     /* 次要文字（对 --c-bg 对比度 ≥ 4.5:1） */
+  --c-border: #E2E8F0;         /* 边框 / 分隔线 */
+  --c-on-primary: #FFFFFF;     /* 主色之上的前景（对比度 ≥ 4.5:1） */
+  --c-danger: #B91C1C;         /* 语义：限时徽章（深红，对白色 ≥ 4.5:1） */
+  --c-danger-soft: #FEF2F2;    /* 语义：限时徽章底 */
+
+  /* ---- 字体栈（design.md 1.3.7.1 冻结值） ---- */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Consolas, "Courier New", monospace;
+
+  /* ---- 字体阶梯 ---- */
+  --fs-xs: 12px;
+  --fs-sm: 14px;
+  --fs-base: 16px;
+  --fs-lg: 18px;
+  --fs-xl: 22px;
+  --fs-2xl: 28px;
+  --fs-hero: clamp(1.75rem, 4vw, 2.5rem);
+
+  /* ---- 间距（4px 基数） ---- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-7: 28px;
+  --sp-8: 32px;
+
+  /* ---- 布局容器 ---- */
+  --w-container: 1200px;  /* 宽屏容器封顶（≥1280px 居中） */
+  --w-prose: 72ch;        /* 正文阅读宽（≥1024px 生效，禁止全屏拉伸） */
+
+  /* ---- 圆角 / 阴影 ---- */
+  --radius-sm: 8px;
+  --radius-card: 12px;
+  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.08), 0 4px 12px rgba(15, 23, 42, 0.06);
+
+  /* ---- 触控基线（REQ-RWD-002） ---- */
+  --touch-target: 44px;
+}
+
+/* 断点速查（本文件不写媒体查询，仅供 base/theme 层注释引用）：
+   < 375px  基线：单列堆叠，320px 可用
+   ≥ 375px  触控间距放宽
+   ≥ 768px  平板：卡片 2 列
+   ≥ 1024px 桌面：卡片 3 列、正文 72ch
+   ≥ 1280px 宽屏：容器 1200px 封顶居中
+*/

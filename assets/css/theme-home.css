@@ -1,0 +1,71 @@
+/* ==========================================================================
+   theme-home.css — 首页主题层（第 3 层 / 共 3 层）
+   --------------------------------------------------------------------------
+   作用域：body[data-site="home"]（首页 / about / 404 共用中性主题）。
+   覆盖 12 个主题 token + 首页布局差异类（hero + 5 卡片响应式网格）。
+   ========================================================================== */
+
+[data-site="home"] {
+  /* ---- 主题 token 覆盖（home：石板蓝主色 + 靛蓝点缀） ---- */
+  --c-primary: #334155;
+  --c-primary-strong: #1E293B;
+  --c-primary-soft: #E2E8F0;
+  --c-accent: #4F46E5;
+  --c-bg: #F8FAFC;
+  --c-surface: #FFFFFF;
+  --c-text: #1E293B;
+  --c-text-muted: #475569;
+  --c-border: #E2E8F0;
+  --c-on-primary: #FFFFFF;
+  --c-danger: #B91C1C;
+  --c-danger-soft: #FEF2F2;
+}
+
+/* ---- hero：居中单列，品牌渐变呼应"无限惠环" ---- */
+.home-hero {
+  background: linear-gradient(135deg, #4F46E5 0%, #0EA5E9 100%);
+  color: #FFFFFF;
+  padding-block: var(--sp-8);
+}
+
+.home-hero .container {
+  max-width: var(--w-prose);
+  text-align: center;
+}
+
+.home-hero h1 {
+  color: #FFFFFF;
+}
+
+.home-hero p {
+  margin-top: var(--sp-4);
+  color: #F1F5F9;
+}
+
+/* ---- 5 分站卡片网格：基线 1 列 → 768px 2 列 → 1024px 3 列 ---- */
+.home-cards {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .home-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .home-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* 卡片顶部主题色条（分站主题色预览，增强两两区分度） */
+.site-card {
+  border-top: 4px solid var(--c-accent);
+}
+
+.site-card--bendi { border-top-color: #EA580C; }
+.site-card--meituan { border-top-color: #65A30D; }
+.site-card--jingdong-waimai { border-top-color: #DC2626; }
+.site-card--daojia { border-top-color: #0284C7; }
+.site-card--gouwu { border-top-color: #7C3AED; }
