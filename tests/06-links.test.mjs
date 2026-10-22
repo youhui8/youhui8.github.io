@@ -98,9 +98,12 @@ test('站外链接仅做静态口径登记（不发起网络请求，线上可�
   for (const rel of ALL_PAGES) {
     for (const ref of collectRefs(read(rel))) {
       if (/^https?:\/\//i.test(ref) && !ref.startsWith(SITE)) {
-        // 白名单：3 个友链 + data.js 推广链接 + schema.org（JSON-LD 不走 href，此处兜底）
+        // 白名单：3 个友链 + data.js 推广链接 + 首页「资料来源与引证」命名信息源 + GitHub Issues 联系页 + schema.org（JSON-LD 不走 href，此处兜底）
         const ok = EXTERNAL_FRIENDS.some((f) => ref.startsWith(f.url));
-        if (!ok && !/^https?:\/\/(kzurl18\.cn|kurl07\.cn|1\.yoourl\.net|h\.fxzb\.vip|taoduoyu118\.kzurl01\.cn)/.test(ref)) {
+        const isPromo = /^https?:\/\/(kzurl18\.cn|kurl07\.cn|1\.yoourl\.net|h\.fxzb\.vip|taoduoyu118\.kzurl01\.cn)/.test(ref);
+        const isCitation = /^https?:\/\/(www\.meituan\.com|www\.ele\.me|www\.jd\.com|www\.taobao\.com|www\.pinduoduo\.com)/.test(ref);
+        const isContact = /^https?:\/\/github\.com\/youhui8\/youhui8\.github\.io\/issues/.test(ref);
+        if (!ok && !isPromo && !isCitation && !isContact) {
           errs.push(`${rel}: 出现未登记的外链：${ref}`);
         }
       }

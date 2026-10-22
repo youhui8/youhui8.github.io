@@ -1,7 +1,8 @@
 /**
  * 校验 3：每页 meta 完整性（title / description / canonical / OG / twitter）
- * 口径（spec REQ-SEO-001/002 + tasks.md Phase E）：
- *   - title 唯一且 ≤30 字；description 60~120 字且全站唯一
+ * 口径（spec REQ-SEO-001/002 + tasks.md Phase E + AI-SEO 审计）：
+ *   - title 唯一且 ≤60 字（首页按 AI-SEO 建议 40~60 字，子页可短于 40）
+ *   - description 60~160 字且全站唯一（首页按 AI-SEO 建议 140~160 字）
  *   - canonical 与页面 URL 一致（404 除外，不索引）
  *   - OG 标签完整（og:title/og:description/og:type/og:url/og:image+尺寸/og:site_name）
  *   - og:image 指向的图片文件真实存在且为合法 PNG
@@ -13,7 +14,7 @@ import {
   getTitle, getMeta, getLink, getOg, charLen,
 } from './helpers.mjs';
 
-test('全站 18 页：title 均存在、唯一且 ≤30 字', () => {
+test('全站 18 页：title 均存在、唯一且 ≤60 字', () => {
   const titles = new Map();
   const errs = [];
   for (const rel of ALL_PAGES) {
@@ -23,14 +24,14 @@ test('全站 18 页：title 均存在、唯一且 ≤30 字', () => {
       continue;
     }
     const n = charLen(t);
-    if (n > 30) errs.push(`${rel}: title ${n} 字（>30）：${t}`);
+    if (n > 60) errs.push(`${rel}: title ${n} 字（>60）：${t}`);
     if (titles.has(t)) errs.push(`${rel}: title 与 ${titles.get(t)} 重复：${t}`);
     else titles.set(t, rel);
   }
   assert.deepEqual(errs, [], 'title 校验存在以下问题');
 });
 
-test('全站 18 页：description 均存在、60~120 字且全站唯一', () => {
+test('全站 18 页：description 均存在、60~160 字且全站唯一', () => {
   const descs = new Map();
   const errs = [];
   for (const rel of ALL_PAGES) {
@@ -40,7 +41,7 @@ test('全站 18 页：description 均存在、60~120 字且全站唯一', () => 
       continue;
     }
     const n = charLen(d);
-    if (n < 60 || n > 120) errs.push(`${rel}: description ${n} 字（应在 60~120）：${d.slice(0, 24)}…`);
+    if (n < 60 || n > 160) errs.push(`${rel}: description ${n} 字（应在 60~160）：${d.slice(0, 24)}…`);
     if (descs.has(d)) errs.push(`${rel}: description 与 ${descs.get(d)} 重复`);
     else descs.set(d, rel);
   }
