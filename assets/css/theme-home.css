@@ -72,3 +72,22 @@
 .site-card--jingdong-waimai { border-top-color: #DC2626; }
 .site-card--daojia { border-top-color: #0284C7; }
 .site-card--gouwu { border-top-color: #7C3AED; }
+
+/* ---- 热门优惠入口（快捷区，二次优化新增） ---- */
+.quick-access {
+  margin: 0 0 var(--sp-8);
+  padding: var(--sp-6);
+  background: var(--c-bg);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-md);
+}
+.quick-access-title { margin: 0 0 var(--sp-2); font-size: var(--fs-2xl); }
+.quick-access-desc { margin: 0 0 var(--sp-4); color: var(--c-text-muted); }
+.quick-access-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--sp-3);
+}
+.quick-access-grid .promo-cta { width: 100%; }
+.quick-access-links { margin: var(--sp-3) 0 0; font-size: var(--fs-md); color: var(--c-text-muted); }
+.quick-access-links a { color: var(--c-primary); text-decoration: underline; }

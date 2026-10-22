@@ -220,7 +220,7 @@ export function collectVisibleBreadcrumb(html) {
   const ol = html.match(/<ol class="breadcrumb">([\s\S]*?)<\/ol>/);
   if (!ol) return null;
   const items = [];
-  const re = /<li(\s+aria-current="page")?\s*>(?:<a\s+href="([^"]*)"\s*>([\s\S]*?)<\/a>|([\s\S]*?))<\/li>/g;
+  const re = /<li(\s+aria-current="page")?\s*>(?:<a\b[^>]*\bhref="([^"]*)"[^>]*>([\s\S]*?)<\/a>|([\s\S]*?))<\/li>/g;
   let m;
   while ((m = re.exec(ol[1]))) {
     items.push({

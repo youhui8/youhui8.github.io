@@ -131,9 +131,11 @@ test('首页卡片：deadline 站卡片带期限组件，deadline.js 已加载�
   assert.ok(dls.length >= 2, `首页应含 ≥2 个 deadline 卡片组件（meituan/jingdong-waimai），实际 ${dls.length}`);
   for (const v of dls) assert.equal(v, '2026-12-31', `首页组件期限应为 2026-12-31，实际 ${v}`);
   assert.ok(html.includes(`src="${DEADLINE_JS}"`), '首页应引用 deadline.js');
-  // 首页卡片不直接挂外部推广链接（CTA 在分站页）
+  // 首页快捷入口区允许挂接推广链接：必须全部来自 data.js 单一事实源（href 逐字一致）
   const externalCtas = collectPromoCtas(html).filter((c) => !c.href.startsWith(SITE));
-  assert.equal(externalCtas.length, 0, '首页不应直接挂接外部推广链接（入口在各分站页）');
+  for (const c of externalCtas) {
+    assert.ok(allLinks.has(c.href), `首页快捷入口应为 data.js 推广链接（href 逐字一致），实际 ${c.href}`);
+  }
 });
 
 test('404 页：promo-cta 仅为站内返回链接（不挂接外部推广）', () => {
